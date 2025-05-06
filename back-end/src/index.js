@@ -1,11 +1,12 @@
-const express = require("express");
+import express from "express";
+import userRoutes from "./routes/users.js";
+
 const app = express();
 const port = 3000;
 
-app.get("/", (req, res) => {
-  res.send("Hola Mundo desde mi primera API en Node.js!");
-});
+app.use("/users", userRoutes);
+// app.use("/admin", adminRoutes);
 
 app.listen(port, () => {
-  console.log(`API escuchando en http://localhost:${port}`);
+  console.log("Servidor en puerto 3000");
 });
