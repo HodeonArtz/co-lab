@@ -5,6 +5,7 @@ import RegisterPage from "./app/auth/register/RegisterPage";
 import LoginPage from "./app/auth/login/LoginPage";
 import DocumentPage from "./app/document/DocumentPage";
 import AuthLayout from "./app/auth/AuthLayout";
+import NotFoundPage from "./app/NotFoundPage";
 
 export const routes = createBrowserRouter([
   {
@@ -23,5 +24,10 @@ export const routes = createBrowserRouter([
       { path: "login", element: <LoginPage />, index: true },
       { path: "register", element: <RegisterPage /> },
     ],
+  },
+  {
+    path: "*",
+    element: <Layout />,
+    children: [{ path: "*", element: <NotFoundPage /> }],
   },
 ]);
