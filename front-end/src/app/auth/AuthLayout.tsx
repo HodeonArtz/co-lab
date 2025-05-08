@@ -1,9 +1,13 @@
+import { Paper } from "@mantine/core";
 import { Outlet } from "react-router-dom";
+import classes from "./AuthLayout.module.css";
 
 const AuthLayout = () => {
   return (
-    <div>
-      Auth <Outlet />
+    <div className={classes.wrapper}>
+      <Paper className={classes.form}>
+        <Outlet />
+      </Paper>
     </div>
   );
 };
