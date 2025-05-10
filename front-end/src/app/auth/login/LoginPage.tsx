@@ -1,5 +1,67 @@
+import {
+  Anchor,
+  Box,
+  Button,
+  PasswordInput,
+  Stack,
+  Text,
+  TextInput,
+  Title,
+} from "@mantine/core";
+import { useForm, zodResolver } from "@mantine/form";
+import { Link } from "react-router-dom";
+import { authSchema } from "../../../validations/zodAuthSchema";
+
 const LoginPage = () => {
-  return <div>LoginPage</div>;
+  const loginForm = useForm<AuthForm>({
+    mode: "controlled",
+    validate: zodResolver(authSchema),
+    validateInputOnChange: true,
+  });
+
+  function handleSubmit(values: AuthForm) {
+    console.log("Logging in with: ", values);
+    console.error("Making a request to login is NOT IMPLEMENTED YET");
+  }
+
+  return (
+    <Stack align="stretch">
+      <Title ta="center" size="1.85rem" mb="lg">
+        Welcome back!
+      </Title>
+      <Title ta="center" order={2}>
+        Log in
+      </Title>
+      <Box component="form" onSubmit={loginForm.onSubmit(handleSubmit)}>
+        <TextInput
+          label="Username"
+          placeholder="Your username"
+          size="md"
+          radius="md"
+          mb="xs"
+          {...loginForm.getInputProps("username")}
+        />
+        <PasswordInput
+          label="Password"
+          placeholder="Your password"
+          size="md"
+          radius="md"
+          mb="xl"
+          {...loginForm.getInputProps("password")}
+        />
+        <Button type="submit" fullWidth mt="xl" size="md" radius="md">
+          Login
+        </Button>
+
+        <Text ta="center" mt="md">
+          Don&apos;t have an account?{" "}
+          <Anchor component={Link} to="/auth/register" fw={500}>
+            Register
+          </Anchor>
+        </Text>
+      </Box>
+    </Stack>
+  );
 };
 
 export default LoginPage;
