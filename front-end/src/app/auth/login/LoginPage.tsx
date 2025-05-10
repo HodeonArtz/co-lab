@@ -8,9 +8,16 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
+import { useForm, zodResolver } from "@mantine/form";
 import { Link } from "react-router-dom";
+import { authSchema } from "../../../validations/zodAuthSchema";
 
 const LoginPage = () => {
+  const loginForm = useForm<AuthForm>({
+    mode: "controlled",
+    validate: zodResolver(authSchema),
+    validateInputOnChange: true,
+  });
   return (
     <Stack align="stretch">
       <Title ta="center" size="1.85rem" mb="lg">
@@ -19,13 +26,14 @@ const LoginPage = () => {
       <Title ta="center" order={2}>
         Log in
       </Title>
-      <Box>
+      <Box component="form" onSubmit={loginForm.onSubmit(() => {})}>
         <TextInput
           label="Username"
           placeholder="Your username"
           size="md"
           radius="md"
           mb="xs"
+          {...loginForm.getInputProps("username")}
         />
         <PasswordInput
           label="Password"
@@ -33,8 +41,9 @@ const LoginPage = () => {
           size="md"
           radius="md"
           mb="xl"
+          {...loginForm.getInputProps("password")}
         />
-        <Button fullWidth mt="xl" size="md" radius="md">
+        <Button type="submit" fullWidth mt="xl" size="md" radius="md">
           Login
         </Button>
 
