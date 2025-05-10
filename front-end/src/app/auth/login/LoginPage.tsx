@@ -18,6 +18,12 @@ const LoginPage = () => {
     validate: zodResolver(authSchema),
     validateInputOnChange: true,
   });
+
+  function handleSubmit(values: AuthForm) {
+    console.log("Logging in with: ", values);
+    console.error("Making a request to login is NOT IMPLEMENTED YET");
+  }
+
   return (
     <Stack align="stretch">
       <Title ta="center" size="1.85rem" mb="lg">
@@ -26,7 +32,7 @@ const LoginPage = () => {
       <Title ta="center" order={2}>
         Log in
       </Title>
-      <Box component="form" onSubmit={loginForm.onSubmit(() => {})}>
+      <Box component="form" onSubmit={loginForm.onSubmit(handleSubmit)}>
         <TextInput
           label="Username"
           placeholder="Your username"

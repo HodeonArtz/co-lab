@@ -18,6 +18,11 @@ const RegisterPage = () => {
     validate: zodResolver(authSchema),
     validateInputOnChange: true,
   });
+  function handleSubmit(values: AuthForm) {
+    console.log("Signing up in with: ", values);
+    console.error("Making a request to register is NOT IMPLEMENTED YET");
+  }
+
   return (
     <Stack align="stretch">
       <Title ta="center" size="1.85rem" mb="lg">
@@ -26,7 +31,7 @@ const RegisterPage = () => {
       <Title ta="center" order={2}>
         Register
       </Title>
-      <Box component="form" onSubmit={registerForm.onSubmit(() => {})}>
+      <Box component="form" onSubmit={registerForm.onSubmit(handleSubmit)}>
         <TextInput
           label="Username"
           placeholder="New username"
