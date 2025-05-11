@@ -11,6 +11,7 @@ import {
 import { useForm, zodResolver } from "@mantine/form";
 import { Link } from "react-router-dom";
 import { authSchema } from "../../../validations/zodAuthSchema";
+import { register } from "../../_services/authService";
 
 const RegisterPage = () => {
   const registerForm = useForm<AuthForm>({
@@ -18,9 +19,10 @@ const RegisterPage = () => {
     validate: zodResolver(authSchema),
     validateInputOnChange: true,
   });
-  function handleSubmit(values: AuthForm) {
+  async function handleSubmit(values: AuthForm) {
     console.log("Signing up in with: ", values);
-    console.error("Making a request to register is NOT IMPLEMENTED YET");
+    const isRegistered = await register(values.username, values.password);
+    console.log(isRegistered);
   }
 
   return (
