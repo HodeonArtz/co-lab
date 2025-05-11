@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "ESNext", // Usamos ESNext para la compatibilidad con importaciones modernas.
+    "target": "ESNext", // Asegúrate de que el código se transpile a una versión moderna de JavaScript.
+    "moduleResolution": "Node", // Esto permite que TypeScript resuelva correctamente los módulos como lo haría Node.js.
+    "esModuleInterop": true, // Esto permite usar importaciones de módulos CommonJS sin problemas.
+    "resolveJsonModule": true, // Esto es clave para importar archivos .json como módulos.
+    "allowSyntheticDefaultImports": true, // Asegura que las importaciones por defecto funcionen correctamente.
+    "strict": true, // Recomendado, pero opcional, para un mejor control de tipos.
+    "skipLibCheck": true, // Mejora el tiempo de compilación omitiendo la verificación de tipos de librerías.
+    "forceConsistentCasingInFileNames": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true
+  },
+  "include": ["src/**/*"], // Asegúrate de incluir todos los archivos .ts de tu proyecto
+  "exclude": ["node_modules"]
+}
