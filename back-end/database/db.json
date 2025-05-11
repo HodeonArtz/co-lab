@@ -1,10 +1,7 @@
 {
   "usuarios": [
-    {
-      "id": "u1",
-      "username": "Profesor",
-      "password": "1234"
-    }
+    { "username": "Profesor", "password": "1234" },
+    { "username": "Profesor2", "password": "1234" }
   ],
   "parejas": [
     {
