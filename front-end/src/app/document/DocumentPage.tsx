@@ -1,14 +1,15 @@
-import { Box, Text } from "@mantine/core";
-import { useParams } from "react-router-dom";
+import { AppShell, Container } from "@mantine/core";
+import { DocumentEditor } from "./_components/DocumentEditor";
 
 const DocumentPage = () => {
-  const { id } = useParams();
-
   return (
-    <Box>
-      <Text>DocumentPage</Text>
-      <Text>{id}</Text>
-    </Box>
+    <>
+      <Container>
+        <DocumentEditor />
+      </Container>
+
+      <AppShell.Aside p="md">ff</AppShell.Aside>
+    </>
   );
 };
 
