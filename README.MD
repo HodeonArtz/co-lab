@@ -5,7 +5,6 @@ An app that allows users to collab together while making documents, communicate 
 ## Technologies / Architecture
 
 - Websockets
-  - socket.io
 - Frontend
   - JS' fetch()
   - React w/ TSX
@@ -14,7 +13,7 @@ An app that allows users to collab together while making documents, communicate 
     - Zustand for state management??
     - Zod for input validations
 - Backend
-  - If not Node.JS, Next.js
+  - Node.JS
 
 - Database
   - JSON (or MySQL if god allows it)
