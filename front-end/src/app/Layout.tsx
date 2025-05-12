@@ -19,6 +19,11 @@ const Layout = () => {
         breakpoint: "sm",
         collapsed: { mobile: !opened, desktop: opened },
       }}
+      aside={{
+        width: 350,
+        breakpoint: "md",
+        collapsed: { desktop: false, mobile: true },
+      }}
       padding="md"
     >
       <Header {...{ opened, toggle }} />
