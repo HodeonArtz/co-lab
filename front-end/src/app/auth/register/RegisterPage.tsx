@@ -1,4 +1,5 @@
 import {
+  Alert,
   Anchor,
   Box,
   Button,
@@ -9,18 +10,29 @@ import {
   Title,
 } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
-import { Link } from "react-router-dom";
+import { IconAlertTriangle } from "@tabler/icons-react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { authSchema } from "../../../validations/zodAuthSchema";
+import { register } from "../../_services/authService";
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
+  const [error, setError] = useState<string | undefined>();
   const registerForm = useForm<AuthForm>({
     mode: "controlled",
     validate: zodResolver(authSchema),
     validateInputOnChange: true,
   });
-  function handleSubmit(values: AuthForm) {
+  async function handleSubmit(values: AuthForm) {
     console.log("Signing up in with: ", values);
-    console.error("Making a request to register is NOT IMPLEMENTED YET");
+    const isRegistered = await register(values.username, values.password);
+    console.log(isRegistered);
+    if (!isRegistered.status) {
+      setError(isRegistered.message);
+    } else {
+      navigate("/auth/login");
+    }
   }
 
   return (
@@ -51,6 +63,12 @@ const RegisterPage = () => {
         <Button type="submit" fullWidth mt="xl" size="md" radius="md">
           Register
         </Button>
+
+        {error && (
+          <Alert mt="md" color="red" title="ERROR" icon={<IconAlertTriangle />}>
+            {error}
+          </Alert>
+        )}
 
         <Text ta="center" mt="md">
           Already have an account?{" "}
