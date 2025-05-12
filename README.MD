@@ -10,11 +10,11 @@ An app that allows users to collab together while making documents, communicate 
   - JS' fetch()
   - React w/ TSX
     - Mantine (for UI and forms)
-    - ??React Router Dom?? (depends if we're using Next.JS or pure React)
-    - Zustand for state management
+    - React Router Dom
+    - Zustand for state management??
     - Zod for input validations
 - Backend
   - If not Node.JS, Next.js
-  - ??Prisma (as ORM)
+
 - Database
   - JSON (or MySQL if god allows it)
