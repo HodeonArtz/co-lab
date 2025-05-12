@@ -1,4 +1,12 @@
-import { Button, Group, Paper, ScrollArea, Stack, Text } from "@mantine/core";
+import {
+  Button,
+  Flex,
+  Group,
+  Paper,
+  ScrollArea,
+  Stack,
+  Text,
+} from "@mantine/core";
 import { RichTextEditor } from "@mantine/tiptap";
 import { IconSend2 } from "@tabler/icons-react";
 import Highlight from "@tiptap/extension-highlight";
@@ -42,14 +50,14 @@ export default MessageEditor;
 export const MessagesChannel = () => {
   return (
     <ScrollArea h="100%">
-      <Stack bd="1px">
-        <MessageBox />
-        <MessageBox />
-        <MessageBox />
+      <Flex bd="1px" direction="column-reverse" gap="sm">
         <MessageBox isOP />
         <MessageBox />
         <MessageBox />
-      </Stack>
+        <MessageBox />
+        <MessageBox />
+        <MessageBox />
+      </Flex>
     </ScrollArea>
   );
 };
@@ -60,7 +68,7 @@ interface MessageBoxProps {
 
 const MessageBox = ({ isOP }: MessageBoxProps) => {
   return (
-    <Paper withBorder p="xs">
+    <Paper withBorder p="sm">
       <Stack gap="xs" align={isOP ? "end" : undefined}>
         <Group justify="space-between">
           <Text size="sm" fw="bold">
