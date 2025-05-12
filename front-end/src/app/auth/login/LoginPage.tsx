@@ -1,4 +1,5 @@
 import {
+  Alert,
   Anchor,
   Box,
   Button,
@@ -9,11 +10,15 @@ import {
   Title,
 } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
-import { Link } from "react-router-dom";
+import { IconAlertTriangle } from "@tabler/icons-react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { authSchema } from "../../../validations/zodAuthSchema";
 import { login } from "../../_services/authService";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const [error, setError] = useState<string | undefined>();
   const loginForm = useForm<AuthForm>({
     mode: "controlled",
     validate: zodResolver(authSchema),
@@ -24,6 +29,12 @@ const LoginPage = () => {
     console.log("Logging in with: ", values);
     const isLogged = await login(values.username, values.password);
     console.log(isLogged);
+    if (!isLogged.status) {
+      setError(isLogged.message);
+    } else {
+      localStorage.setItem("isLogged", "true");
+      navigate("/");
+    }
   }
 
   return (
@@ -54,6 +65,12 @@ const LoginPage = () => {
         <Button type="submit" fullWidth mt="xl" size="md" radius="md">
           Login
         </Button>
+
+        {error && (
+          <Alert mt="md" color="red" title="ERROR" icon={<IconAlertTriangle />}>
+            {error}
+          </Alert>
+        )}
 
         <Text ta="center" mt="md">
           Don&apos;t have an account?{" "}
