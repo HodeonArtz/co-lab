@@ -6,6 +6,7 @@ import {
   ScrollArea,
   Stack,
   Text,
+  Transition,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { RichTextEditor } from "@mantine/tiptap";
@@ -16,6 +17,7 @@ import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { Message } from "../../../types/chat";
 import { useEffect } from "react";
+import { useHover } from "@mantine/hooks";
 
 const MessageEditor = () => {
   const messageForm = useForm<Message>({
@@ -28,7 +30,7 @@ const MessageEditor = () => {
     },
   });
 
-  function handleSubmit(value) {
+  function handleSubmit(value: Message) {
     console.log(value);
   }
 
@@ -66,46 +68,67 @@ export default MessageEditor;
 
 export const MessagesChannel = () => {
   return (
-    <ScrollArea h="100%">
-      <Flex bd="1px" direction="column-reverse" gap="lg">
-        <MessageBox isOP />
-        <MessageBox />
-        <MessageBox />
-        <MessageBox />
-        <MessageBox />
-        <MessageBox />
+    <ScrollArea style={{ flexGrow: 1 }}>
+      <Flex
+        bd="1px"
+        direction="column-reverse"
+        justify="flex-end"
+        gap="lg"
+        h="100%"
+      >
+        <MessageBox isOP user="John Doe" createdAt={new Date()}>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem odio,
+          aliquid aliquam alias sit vitae mollitia in eveniet magni incidunt,
+          officiis repudiandae obcaecati eum excepturi, eligendi voluptate minus
+          vero deleniti.
+        </MessageBox>
+        <MessageBox user="Jane Doe" createdAt={new Date()}>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem odio,
+          aliquid aliquam alias sit vitae mollitia in eveniet magni incidunt,
+          officiis repudiandae obcaecati eum excepturi, eligendi voluptate minus
+          vero deleniti.
+        </MessageBox>
+        <MessageBox user="Jane Doe" createdAt={new Date()}>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem odio,
+          aliquid aliquam alias sit vitae mollitia in eveniet magni incidunt,
+          officiis repudiandae obcaecati eum excepturi, eligendi voluptate minus
+          vero deleniti.
+        </MessageBox>
       </Flex>
     </ScrollArea>
   );
 };
 
 interface MessageBoxProps {
+  children: string;
+  user: string;
+  createdAt: Date;
   isOP?: boolean;
 }
 
-const MessageBox = ({ isOP }: MessageBoxProps) => {
+const MessageBox = ({ isOP, user, children, createdAt }: MessageBoxProps) => {
+  const { hovered, ref } = useHover();
   return (
-    <Stack gap="4">
+    <Stack gap="4" ref={ref}>
       <Group justify={isOP ? "end" : undefined}>
         <Text size="sm" fw="bold">
-          User
+          {user}
         </Text>
       </Group>
       <Paper withBorder p="sm">
         <Stack gap="xs" align={isOP ? "end" : undefined}>
-          <Text ta={isOP ? "right" : undefined}>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-            Reprehenderit aperiam nisi molestiae. Fugiat magni velit quam, autem
-            repellat ut impedit alias ducimus soluta aut aperiam quos. Commodi
-            porro sit corrupti.
-          </Text>
-        </Stack>
-        <Stack align={isOP ? "start" : "end"}>
-          <Text display="block" size="xs" c="dimmed">
-            Sent on 2025-05-05 20:40
-          </Text>
+          <Text ta={isOP ? "right" : undefined}>{children}</Text>
         </Stack>
       </Paper>
+      <Stack align={isOP ? "start" : "end"} h="1rem">
+        <Transition mounted={hovered}>
+          {(styles) => (
+            <Text display="block" size="xs" c="dimmed" style={styles}>
+              Sent at {createdAt.toISOString()}
+            </Text>
+          )}
+        </Transition>
+      </Stack>
     </Stack>
   );
 };
