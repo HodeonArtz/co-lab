@@ -15,11 +15,15 @@ import Highlight from "@tiptap/extension-highlight";
 import Underline from "@tiptap/extension-underline";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { Message } from "../../../types/chat";
+import { Message, MessageDisplay } from "../../../types/chat";
 import { useEffect } from "react";
 import { useHover } from "@mantine/hooks";
 
-const MessageEditor = () => {
+interface Props {
+  onSend: ({ content }: Message) => void;
+}
+
+const MessageEditor = ({ onSend }: Props) => {
   const messageForm = useForm<Message>({
     onSubmitPreventDefault: "always",
   });
@@ -30,8 +34,9 @@ const MessageEditor = () => {
     },
   });
 
-  function handleSubmit(value: Message) {
-    console.log(value);
+  function handleSubmit({ content }: Message) {
+    editor?.commands.setContent("");
+    onSend({ content });
   }
 
   useEffect(() => {
@@ -66,34 +71,24 @@ const MessageEditor = () => {
 
 export default MessageEditor;
 
-export const MessagesChannel = () => {
+interface MessagesChannelProps {
+  messages: MessageDisplay[];
+}
+
+export const MessagesChannel = ({ messages }: MessagesChannelProps) => {
   return (
     <ScrollArea style={{ flexGrow: 1 }}>
-      <Flex
-        bd="1px"
-        direction="column-reverse"
-        justify="flex-end"
-        gap="lg"
-        h="100%"
-      >
-        <MessageBox isOP user="John Doe" createdAt={new Date()}>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem odio,
-          aliquid aliquam alias sit vitae mollitia in eveniet magni incidunt,
-          officiis repudiandae obcaecati eum excepturi, eligendi voluptate minus
-          vero deleniti.
-        </MessageBox>
-        <MessageBox user="Jane Doe" createdAt={new Date()}>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem odio,
-          aliquid aliquam alias sit vitae mollitia in eveniet magni incidunt,
-          officiis repudiandae obcaecati eum excepturi, eligendi voluptate minus
-          vero deleniti.
-        </MessageBox>
-        <MessageBox user="Jane Doe" createdAt={new Date()}>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem odio,
-          aliquid aliquam alias sit vitae mollitia in eveniet magni incidunt,
-          officiis repudiandae obcaecati eum excepturi, eligendi voluptate minus
-          vero deleniti.
-        </MessageBox>
+      <Flex bd="1px" direction="column" justify="flex-end" gap="lg" h="100%">
+        {messages.map(({ id, content, createdAt, isOp, username }) => (
+          <MessageBox
+            key={id}
+            isOP={isOp}
+            user={username}
+            createdAt={new Date(createdAt)}
+          >
+            {content}
+          </MessageBox>
+        ))}
       </Flex>
     </ScrollArea>
   );
