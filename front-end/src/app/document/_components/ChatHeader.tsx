@@ -1,6 +1,6 @@
 import { ActionIcon, Group, Title } from "@mantine/core";
 import { IconDownload } from "@tabler/icons-react";
-import { fetchAndGetAllMessages } from "../../_services/chat";
+import { fetchAndGetAllMessages } from "../../_services/chatService";
 
 const ChatHeader = () => {
   async function handleDownload() {

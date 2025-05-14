@@ -26,3 +26,11 @@ export async function register(
     })
   ).json();
 }
+export function getCurrentUser() {
+  return localStorage.getItem("username");
+}
+
+export function logoutUser() {
+  localStorage.setItem("isLogged", "false");
+  localStorage.removeItem("username");
+}

@@ -63,7 +63,7 @@ const MessageEditor = ({ onSend }: Props) => {
       </RichTextEditor>
       <Group justify="end">
         <Button type="submit" size="sm" rightSection={<IconSend2 size={20} />}>
-          Enviar
+          Send
         </Button>
       </Group>
     </Paper>
