@@ -3,13 +3,15 @@ import { useDisclosure } from "@mantine/hooks";
 import { Outlet, useNavigate } from "react-router-dom";
 import Header from "./_components/layout/Header";
 import Navbar from "./_components/layout/Navbar";
+import { useEffect } from "react";
 
 const Layout = () => {
   const navigate = useNavigate();
   const [opened, { toggle }] = useDisclosure();
-  if (localStorage.getItem("isLogged") !== "true") {
-    navigate("/auth/login");
-  }
+
+  useEffect(() => {
+    if (localStorage.getItem("isLogged") !== "true") navigate("/auth/login");
+  }, []);
 
   return (
     <AppShell
