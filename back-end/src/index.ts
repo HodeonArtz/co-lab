@@ -35,22 +35,22 @@ server.on("upgrade", (req, socket, head) => {
   }
 });
 
-wssChat.on("connection", (ws) => {
-  console.log("Cliente conectado a /chat");
+function updateMessagesForUsers() {
   wssChat.clients.forEach((client) => {
     if (client.readyState === WebSocket.OPEN) {
       client.send(JSON.stringify(getAllMessages())); // Puedes incluir timestamp si quieres
     }
   });
+}
+
+wssChat.on("connection", (ws) => {
+  console.log("Cliente conectado a /chat");
+  updateMessagesForUsers();
   ws.on("message", (msg) => {
     const data: ClientMessage = JSON.parse(msg.toString());
     console.log("[chat]", data);
     postMessage({ ...data, createdAt: new Date(), id: crypto.randomUUID() });
-    wssChat.clients.forEach((client) => {
-      if (client.readyState === WebSocket.OPEN) {
-        client.send(JSON.stringify(getAllMessages())); // Puedes incluir timestamp si quieres
-      }
-    });
+    updateMessagesForUsers();
   });
 });
 

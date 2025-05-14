@@ -16,7 +16,7 @@ import Underline from "@tiptap/extension-underline";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { Message, MessageDisplay } from "../../../types/chat";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useHover } from "@mantine/hooks";
 
 interface Props {
@@ -76,8 +76,18 @@ interface MessagesChannelProps {
 }
 
 export const MessagesChannel = ({ messages }: MessagesChannelProps) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTo({
+        top: scrollRef.current!.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [messages]); // 🚨 Importante: se ejecuta cada vez que llegan mensajes
   return (
-    <ScrollArea style={{ flexGrow: 1 }}>
+    <ScrollArea style={{ flexGrow: 1 }} viewportRef={scrollRef}>
       <Flex bd="1px" direction="column" justify="flex-end" gap="lg" h="100%">
         {messages.map(({ id, content, createdAt, isOp, username }) => (
           <MessageBox
