@@ -29,7 +29,7 @@
 
 ### 🗄️ Base de datos
 
-- Inicialmente JSON, con posibilidad de migración a MySQL
+- JSON
 
 ---
 
