@@ -60,9 +60,15 @@ cd front-end
 npm install
 ```
 
-4. Levanta el **backend** desde la carpeta `server`.
+4. Levanta el **backend** desde la carpeta `back-end`.
+```bash
+npm run dev
+```
 
-5. En otra terminal, levanta el **frontend** desde la carpeta `client`.
+5. En otra terminal, levanta el **frontend** desde la carpeta `front-end`.
+```bash
+npm run dev
+```
 
 Por defecto:
 - El frontend estará disponible en `http://localhost:5173`
