@@ -33,6 +33,7 @@ const LoginPage = () => {
       setError(isLogged.message);
     } else {
       localStorage.setItem("isLogged", "true");
+      localStorage.setItem("username", values.username);
       navigate("/");
     }
   }
