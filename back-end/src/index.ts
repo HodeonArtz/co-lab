@@ -1,10 +1,11 @@
 import cors from "cors";
 import express from "express";
-import userRoutes from "./routes/users.ts";
-import { documentPort } from "./services/websocket/websocketService.ts";
-import chatRoutes from "./routes/chat.ts";
 import { WebSocketServer } from "ws";
+import chatRoutes from "./routes/chat.ts";
+import documentRoutes from "./routes/document.ts";
+import userRoutes from "./routes/users.ts";
 import { getAllMessages, postMessage } from "./services/websockets/chat.ts";
+import { documentPort } from "./services/websockets/websocketService.ts";
 const app = express();
 const port = 3000;
 app.use(
@@ -18,6 +19,7 @@ app.use(express.json());
 
 app.use("/user", userRoutes);
 app.use("/chat", chatRoutes);
+app.use("/document", documentRoutes);
 
 const wssChat = new WebSocketServer({ noServer: true });
 export const wssDocument = new WebSocketServer({ noServer: true });

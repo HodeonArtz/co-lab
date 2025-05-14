@@ -16,15 +16,6 @@ interface ClientDocument {
   content: {};
   username: string;
 }
-// // Endpoint to download history
-// app.get("/history/download", (req, res) => {
-//   const file = "./history.json";
-//   res.download(file);
-// });
-
-// app.listen(3002, () => {
-//   console.log("HTTP server on http://localhost:3002");
-// });
 
 export function documentPort() {
   let documentContent = {};
@@ -34,14 +25,8 @@ export function documentPort() {
     console.log("usuario conectado");
     ws.on("message", (message) => {
       const data: ClientDocument = JSON.parse(message.toString());
-      const timestamp = new Date().toISOString();
 
       documentContent = data.content;
-
-      const entry = {
-        ...data,
-        timestamp,
-      };
 
       // Broadcast to all connected clients (optional)
       wssDocument.clients.forEach((client) => {
@@ -58,7 +43,6 @@ export function documentPort() {
 
       // Save content periodically
       fs.writeFileSync(ruta, JSON.stringify(documentContent, null, 2), "utf8");
-      // fs.writeFileSync("./history.json", JSON.stringify(history, null, 2));
     });
   });
 }
