@@ -10,9 +10,12 @@ import StarterKit from "@tiptap/starter-kit";
 import { useEffect } from "react";
 import {
   connectSocket,
+  fetchAndGetDocument,
   sendEditorUpdate,
   socket,
 } from "../../_services/documentService";
+import { Stack } from "@mantine/core";
+import HeaderTitle from "./HeaderTitle";
 
 export function DocumentEditor() {
   const handleOnChange = useDebouncedCallback(
@@ -27,6 +30,17 @@ export function DocumentEditor() {
     },
     950
   );
+
+  const handleOnDownload = async () => {
+    const url = await fetchAndGetDocument();
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "datos.json"; // Nombre del archivo
+    a.click();
+
+    // Limpia la URL creada
+    URL.revokeObjectURL(url);
+  };
 
   const editor = useEditor({
     extensions: [
@@ -53,53 +67,56 @@ export function DocumentEditor() {
   }, []);
 
   return (
-    <RichTextEditor editor={editor} mih="500px">
-      <RichTextEditor.Toolbar sticky stickyOffset="var(--docs-header-height)">
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.Bold />
-          <RichTextEditor.Italic />
-          <RichTextEditor.Underline />
-          <RichTextEditor.Strikethrough />
-          <RichTextEditor.ClearFormatting />
-          <RichTextEditor.Highlight />
-          <RichTextEditor.Code />
-        </RichTextEditor.ControlsGroup>
+    <Stack>
+      <HeaderTitle onDownload={handleOnDownload}>Document</HeaderTitle>
+      <RichTextEditor editor={editor} mih="500px">
+        <RichTextEditor.Toolbar sticky stickyOffset="var(--docs-header-height)">
+          <RichTextEditor.ControlsGroup>
+            <RichTextEditor.Bold />
+            <RichTextEditor.Italic />
+            <RichTextEditor.Underline />
+            <RichTextEditor.Strikethrough />
+            <RichTextEditor.ClearFormatting />
+            <RichTextEditor.Highlight />
+            <RichTextEditor.Code />
+          </RichTextEditor.ControlsGroup>
 
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.H1 />
-          <RichTextEditor.H2 />
-          <RichTextEditor.H3 />
-          <RichTextEditor.H4 />
-        </RichTextEditor.ControlsGroup>
+          <RichTextEditor.ControlsGroup>
+            <RichTextEditor.H1 />
+            <RichTextEditor.H2 />
+            <RichTextEditor.H3 />
+            <RichTextEditor.H4 />
+          </RichTextEditor.ControlsGroup>
 
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.Blockquote />
-          <RichTextEditor.Hr />
-          <RichTextEditor.BulletList />
-          <RichTextEditor.OrderedList />
-          <RichTextEditor.Subscript />
-          <RichTextEditor.Superscript />
-        </RichTextEditor.ControlsGroup>
+          <RichTextEditor.ControlsGroup>
+            <RichTextEditor.Blockquote />
+            <RichTextEditor.Hr />
+            <RichTextEditor.BulletList />
+            <RichTextEditor.OrderedList />
+            <RichTextEditor.Subscript />
+            <RichTextEditor.Superscript />
+          </RichTextEditor.ControlsGroup>
 
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.Link />
-          <RichTextEditor.Unlink />
-        </RichTextEditor.ControlsGroup>
+          <RichTextEditor.ControlsGroup>
+            <RichTextEditor.Link />
+            <RichTextEditor.Unlink />
+          </RichTextEditor.ControlsGroup>
 
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.AlignLeft />
-          <RichTextEditor.AlignCenter />
-          <RichTextEditor.AlignJustify />
-          <RichTextEditor.AlignRight />
-        </RichTextEditor.ControlsGroup>
+          <RichTextEditor.ControlsGroup>
+            <RichTextEditor.AlignLeft />
+            <RichTextEditor.AlignCenter />
+            <RichTextEditor.AlignJustify />
+            <RichTextEditor.AlignRight />
+          </RichTextEditor.ControlsGroup>
 
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.Undo />
-          <RichTextEditor.Redo />
-        </RichTextEditor.ControlsGroup>
-      </RichTextEditor.Toolbar>
+          <RichTextEditor.ControlsGroup>
+            <RichTextEditor.Undo />
+            <RichTextEditor.Redo />
+          </RichTextEditor.ControlsGroup>
+        </RichTextEditor.Toolbar>
 
-      <RichTextEditor.Content />
-    </RichTextEditor>
+        <RichTextEditor.Content />
+      </RichTextEditor>
+    </Stack>
   );
 }
