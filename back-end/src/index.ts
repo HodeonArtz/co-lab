@@ -1,6 +1,7 @@
 import cors from "cors";
 import express from "express";
 import userRoutes from "./routes/users.ts";
+import chatRoutes from "./routes/chat.ts";
 import { WebSocketServer } from "ws";
 import { getAllMessages, postMessage } from "./services/websockets/chat.ts";
 const app = express();
@@ -15,7 +16,7 @@ app.use(
 app.use(express.json());
 
 app.use("/user", userRoutes);
-// app.use("/admin", adminRoutes);
+app.use("/chat", chatRoutes);
 
 const wssChat = new WebSocketServer({ noServer: true });
 8;
