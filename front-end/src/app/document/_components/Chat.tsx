@@ -1,4 +1,4 @@
-import { Divider, Stack, Title } from "@mantine/core";
+import { Divider, Stack } from "@mantine/core";
 import MessageEditor, { MessagesChannel } from "./Messages";
 import { useEffect, useState } from "react";
 import {
@@ -7,6 +7,7 @@ import {
   MessageDisplay,
   WebSocketMessage,
 } from "../../../types/chat";
+import ChatHeader from "./ChatHeader";
 
 const Chat = () => {
   const [onSend, setOnSend] = useState<
@@ -61,7 +62,7 @@ const Chat = () => {
   }, []);
   return (
     <Stack justify="end" h="100%">
-      <Title size="h3">Chat</Title>
+      <ChatHeader />
       <Divider />
       <MessagesChannel messages={messages || []} />
       {onSend && <MessageEditor onSend={onSend} />}
