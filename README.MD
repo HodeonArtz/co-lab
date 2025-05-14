@@ -1,6 +1,7 @@
 # co.lab
 
-**co.lab** es una aplicación web desarrollada como práctica de clase para integrar el uso de fetch y WebSockets. La app permite a los usuarios registrarse o iniciar sesión para acceder a una sala compartida con dos funcionalidades principales: un chat en tiempo real, donde pueden conversar con otras personas conectadas, y un editor colaborativo de texto, similar a Google Docs, que permite escribir de forma simultánea. Está desarrollada con React (usando Mantine para la interfaz), Express para el backend, y ws para la comunicación en tiempo real. Todo el contenido se sincroniza al instante gracias a WebSockets.
+**co.lab** es una aplicación web desarrollada como práctica de clase para integrar el uso de fetch y WebSockets. La app permite a los usuarios registrarse o iniciar sesión para acceder a una sala compartida con dos funcionalidades principales: un chat en tiempo real, donde pueden conversar con otras personas conectadas, y un editor colaborativo de texto, similar a Google Docs, que permite escribir de forma simultánea. 
+Está desarrollada con React (usando Mantine para la interfaz), Express para el backend, y ws para la comunicación en tiempo real. Todo el contenido se sincroniza al instante gracias a WebSockets.
 
 ## ✨ Funcionalidades principales
 
