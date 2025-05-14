@@ -16,8 +16,9 @@ import Underline from "@tiptap/extension-underline";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { Message, MessageDisplay } from "../../../types/chat";
-import { useEffect, useRef } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import { useHover } from "@mantine/hooks";
+import classnames from "./Messages.module.css";
 
 interface Props {
   onSend: ({ content }: Message) => void;
@@ -87,7 +88,12 @@ export const MessagesChannel = ({ messages }: MessagesChannelProps) => {
     }
   }, [messages]); // 🚨 Importante: se ejecuta cada vez que llegan mensajes
   return (
-    <ScrollArea style={{ flexGrow: 1 }} viewportRef={scrollRef}>
+    <ScrollArea
+      style={{ flexGrow: 1 }}
+      viewportRef={scrollRef}
+      offsetScrollbars
+      scrollbars="y"
+    >
       <Flex bd="1px" direction="column" justify="flex-end" gap="lg" h="100%">
         {messages.map(({ id, content, createdAt, isOp, username }) => (
           <MessageBox
@@ -96,7 +102,10 @@ export const MessagesChannel = ({ messages }: MessagesChannelProps) => {
             user={username}
             createdAt={new Date(createdAt)}
           >
-            {content}
+            <div
+              dangerouslySetInnerHTML={{ __html: content }}
+              className={classnames.message}
+            />
           </MessageBox>
         ))}
       </Flex>
@@ -105,7 +114,7 @@ export const MessagesChannel = ({ messages }: MessagesChannelProps) => {
 };
 
 interface MessageBoxProps {
-  children: string;
+  children: string | ReactNode;
   user: string;
   createdAt: Date;
   isOP?: boolean;
@@ -114,17 +123,21 @@ interface MessageBoxProps {
 const MessageBox = ({ isOP, user, children, createdAt }: MessageBoxProps) => {
   const { hovered, ref } = useHover();
   return (
-    <Stack gap="4" ref={ref}>
-      <Group justify={isOP ? "end" : undefined}>
-        <Text size="sm" fw="bold">
-          {user}
-        </Text>
-      </Group>
-      <Paper withBorder p="sm">
-        <Stack gap="xs" align={isOP ? "end" : undefined}>
-          <Text ta={isOP ? "right" : undefined}>{children}</Text>
-        </Stack>
-      </Paper>
+    <Stack maw="100%" align={isOP ? "end" : "start"}>
+      <Stack gap="4" ref={ref} maw="100%">
+        <Group justify={isOP ? "end" : undefined}>
+          <Text size="sm" fw="bold">
+            {user}
+          </Text>
+        </Group>
+        <Paper withBorder p="sm">
+          <Stack gap="xs" align={isOP ? "end" : undefined}>
+            <Text ta={isOP ? "right" : undefined} maw="100%">
+              {children}
+            </Text>
+          </Stack>
+        </Paper>
+      </Stack>
       <Stack align={isOP ? "start" : "end"} h="1rem">
         <Transition mounted={hovered}>
           {(styles) => (
