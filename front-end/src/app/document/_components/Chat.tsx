@@ -63,7 +63,7 @@ const Chat = () => {
     <Stack justify="end" h="100%">
       <Title size="h3">Chat</Title>
       <Divider />
-      {messages && <MessagesChannel messages={messages} />}
+      <MessagesChannel messages={messages || []} />
       {onSend && <MessageEditor onSend={onSend} />}
     </Stack>
   );
