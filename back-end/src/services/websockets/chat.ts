@@ -1,0 +1,28 @@
+import { readFileSync, writeFileSync } from "fs";
+import { dirname, resolve } from "path";
+import { fileURLToPath } from "url";
+import type DBJSON from "../../../database/db.json";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const ruta = resolve(__dirname, "../../../database/db.json");
+const dbJson = readFileSync(ruta, "utf8");
+const data: typeof DBJSON = JSON.parse(dbJson);
+const dbMessages = data.messages;
+
+export function postMessage({ createdAt, ...message }: Message) {
+  dbMessages.push({ createdAt: createdAt.toISOString(), ...message });
+  writeFileSync(ruta, JSON.stringify(data), "utf8");
+}
+
+export function getAllMessages(): Message[] {
+  const dbJson = readFileSync(ruta, "utf8");
+  const data: typeof DBJSON = JSON.parse(dbJson);
+  const dbMessages = data.messages;
+
+  return dbMessages.map(({ createdAt, ...dbMessage }) => ({
+    createdAt: new Date(createdAt),
+    ...dbMessage,
+  }));
+}

@@ -1,0 +1,9 @@
+.message p {
+  margin-top: 1px;
+}
+.message * {
+  max-width: 100%;
+  white-space: normal;
+  text-wrap: wrap;
+  word-break: break-all;
+}

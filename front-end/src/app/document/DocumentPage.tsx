@@ -1,5 +1,6 @@
 import { AppShell, Container } from "@mantine/core";
 import { DocumentEditor } from "./_components/DocumentEditor";
+import Chat from "./_components/Chat";
 
 const DocumentPage = () => {
   return (
@@ -8,7 +9,9 @@ const DocumentPage = () => {
         <DocumentEditor />
       </Container>
 
-      <AppShell.Aside p="md">ff</AppShell.Aside>
+      <AppShell.Aside p="md">
+        <Chat />
+      </AppShell.Aside>
     </>
   );
 };
