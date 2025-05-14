@@ -41,7 +41,7 @@ export function DocumentEditor() {
     onUpdate: handleOnChange,
   });
   useEffect(() => {
-    connectSocket("ws://localhost:8000");
+    connectSocket("ws://localhost:3000/doc");
     if (socket)
       socket.onmessage = (e) => {
         console.log("Received", e.data);

@@ -20,8 +20,9 @@ app.use("/user", userRoutes);
 app.use("/chat", chatRoutes);
 
 const wssChat = new WebSocketServer({ noServer: true });
-8;
-const server = app.listen(port, () => {
+export const wssDocument = new WebSocketServer({ noServer: true });
+
+export const server = app.listen(port, () => {
   console.log("Servidor en puerto 3000");
 });
 
@@ -33,6 +34,10 @@ server.on("upgrade", (req, socket, head) => {
   if (pathname === "/chat") {
     wssChat.handleUpgrade(req, socket, head, (ws) => {
       wssChat.emit("connection", ws, req);
+    });
+  } else if (pathname === "/doc") {
+    wssDocument.handleUpgrade(req, socket, head, (ws) => {
+      wssDocument.emit("connection", ws, req);
     });
   } else {
     socket.destroy();

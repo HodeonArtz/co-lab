@@ -3,6 +3,7 @@ import fs from "fs";
 import { dirname, resolve } from "path";
 import { fileURLToPath } from "url";
 import { WebSocketServer } from "ws";
+import { wssDocument } from "../../index.ts";
 const server = new WebSocketServer({ port: 8000 });
 const app = express();
 
@@ -29,7 +30,7 @@ export function documentPort() {
   let documentContent = {};
   let history = [];
 
-  server.on("connection", (ws) => {
+  wssDocument.on("connection", (ws) => {
     console.log("usuario conectado");
     ws.on("message", (message) => {
       const data: ClientDocument = JSON.parse(message.toString());
@@ -43,7 +44,7 @@ export function documentPort() {
       };
 
       // Broadcast to all connected clients (optional)
-      server.clients.forEach((client) => {
+      wssDocument.clients.forEach((client) => {
         if (client !== ws && client.readyState === 1) {
           client.send(
             JSON.stringify({
