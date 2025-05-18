@@ -45,7 +45,13 @@ const Navbar = () => {
             activateOnClick={false}
           >
             <Stack align="stretch">
-              <FileDisplay />
+              <FileDisplay
+                fileInfo={{
+                  name: "document.txt",
+                  createdAt: new Date(),
+                  size: 0,
+                }}
+              />
             </Stack>
           </Dropzone>
         </AppShell.Section>
