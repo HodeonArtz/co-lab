@@ -21,16 +21,15 @@ Está desarrollada con React (usando Mantine para la interfaz), Express para el 
   - fetch() para peticiones HTTP
   - Mantine para componentes UI y formularios
   - React Router Dom para navegación
-  - Zustand para gestión de estado
-  - Zod para validaciones de inputs
 
 ### 🔧 Backend
 
 - Node.js
+- TS
 
 ### 🗄️ Base de datos
 
-- JSON
+- JSON y ficheros
 
 ---
 
@@ -38,7 +37,7 @@ Está desarrollada con React (usando Mantine para la interfaz), Express para el 
 
 ### Requisitos previos
 
-- Node.js >= 18
+- Node.js >= 23
 - npm
 
 ### Pasos
@@ -73,7 +72,7 @@ npm run dev
 
 Por defecto:
 - El frontend estará disponible en `http://localhost:5173`
-- El backend (API y WebSocket) estará en `http://localhost:3000`
+- El backend (API y WebSocket) estará en `http://localhost:3123` y `ws://localhost:3123`
 
 ---
 
