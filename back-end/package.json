@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.ts",
-    "dev": "nodemon src/index.ts"
+    "dev": "nodemon src/index.ts",
+    "build": "npx esbuild src/index.ts --bundle --platform=node --target=node20 --outfile=dist/app.js"
   },
   "keywords": [],
   "author": "",

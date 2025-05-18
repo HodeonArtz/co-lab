@@ -1,11 +1,10 @@
 import fs from "fs";
 import { dirname, resolve } from "path";
-import { fileURLToPath } from "url";
-import { wssDocument } from "../../index.ts";
 import { getDocument, sendDocumentContent } from "./document.ts";
 import { addChange } from "./documentHistory.ts";
+import { wssDocument, wssFiles } from "./servers.ts";
+import { sendFilesList } from "./files.ts";
 
-const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const ruta = resolve(__dirname, "../../../database/documentDB.json");
@@ -17,8 +16,6 @@ interface ClientDocument {
 }
 
 export function documentPort() {
-  let history = [];
-
   wssDocument.on("connection", (ws) => {
     console.log("usuario conectado");
 
@@ -40,6 +37,16 @@ export function documentPort() {
 
       // Save content periodically
       fs.writeFileSync(ruta, JSON.stringify(newData.content, null, 2), "utf8");
+    });
+  });
+}
+export function filesPort() {
+  wssFiles.on("connection", async (ws) => {
+    console.log("usuario conectado a /files");
+    await sendFilesList(ws);
+
+    ws.on("message", async (message) => {
+      await sendFilesList(ws);
     });
   });
 }
