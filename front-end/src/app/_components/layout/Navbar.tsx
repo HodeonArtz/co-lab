@@ -16,7 +16,7 @@ import { FileInfo, IncomingFileInfo } from "../../../types/files";
 import { WS_URL } from "../../_services/wsService";
 const Navbar = () => {
   const openRef = useRef<() => void>(null);
-  const [onUpload, setOnUpload] = useState<
+  const [onUpload] = useState<
     ((fileInfo: FileWithPath[]) => void) | undefined
   >();
   const [files, setFiles] = useState<FileInfo[]>([]);

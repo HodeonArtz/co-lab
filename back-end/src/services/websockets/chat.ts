@@ -1,10 +1,8 @@
 import { readFileSync, writeFileSync } from "fs";
 import { dirname, resolve } from "path";
-import { fileURLToPath } from "url";
 import type DBJSON from "../../../database/db.json";
 import { wssChat } from "./servers.ts";
 
-const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const ruta = resolve(__dirname, "../../../database/db.json");

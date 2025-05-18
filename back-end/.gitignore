@@ -1,6 +1,6 @@
 # ignore
 /node_modules
 /database/uploaded_files/*
-
+/dist
 # include
 !/database/uploaded_files/document.txt
