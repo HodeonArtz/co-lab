@@ -41,6 +41,12 @@
       ]
     },
     {
+      "type": "paragraph",
+      "attrs": {
+        "textAlign": null
+      }
+    },
+    {
       "type": "heading",
       "attrs": {
         "textAlign": null,
