@@ -2,6 +2,7 @@ import { readFileSync, writeFileSync } from "fs";
 import { dirname, resolve } from "path";
 import { fileURLToPath } from "url";
 import type DBJSON from "../../../database/db.json";
+import { wssChat } from "./servers.ts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -25,4 +26,11 @@ export function getAllMessages(): Message[] {
     createdAt: new Date(createdAt),
     ...dbMessage,
   }));
+}
+export function updateMessagesForUsers() {
+  wssChat.clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify(getAllMessages())); // Puedes incluir timestamp si quieres
+    }
+  });
 }

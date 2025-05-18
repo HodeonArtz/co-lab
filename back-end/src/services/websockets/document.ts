@@ -3,7 +3,7 @@ import { dirname, resolve } from "path";
 import { fileURLToPath } from "url";
 import { WebSocket } from "ws";
 import type DBJSON from "../../../database/documentDB.json";
-import { wssDocument } from "../../index.ts";
+import { wssDocument } from "./servers.ts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

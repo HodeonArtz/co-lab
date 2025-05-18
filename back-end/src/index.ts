@@ -1,11 +1,14 @@
 import cors from "cors";
 import express from "express";
-import { WebSocketServer } from "ws";
 import chatRoutes from "./routes/chat.ts";
 import documentRoutes from "./routes/document.ts";
 import userRoutes from "./routes/users.ts";
-import { getAllMessages, postMessage } from "./services/websockets/chat.ts";
+import {
+  postMessage,
+  updateMessagesForUsers,
+} from "./services/websockets/chat.ts";
 import { documentPort } from "./services/websockets/websocketService.ts";
+import { webSockets, wssChat } from "./services/websockets/servers.ts";
 const app = express();
 const port = 3000;
 app.use(
@@ -21,38 +24,29 @@ app.use("/user", userRoutes);
 app.use("/chat", chatRoutes);
 app.use("/document", documentRoutes);
 
-const wssChat = new WebSocketServer({ noServer: true });
-export const wssDocument = new WebSocketServer({ noServer: true });
-
+documentPort();
 export const server = app.listen(port, () => {
   console.log("Servidor en puerto 3000");
 });
 
-documentPort();
-
 server.on("upgrade", (req, socket, head) => {
   const pathname = req.url;
-
-  if (pathname === "/chat") {
-    wssChat.handleUpgrade(req, socket, head, (ws) => {
-      wssChat.emit("connection", ws, req);
-    });
-  } else if (pathname === "/doc") {
-    wssDocument.handleUpgrade(req, socket, head, (ws) => {
-      wssDocument.emit("connection", ws, req);
-    });
-  } else {
+  const webSocketArray = Object.values(webSockets);
+  if (
+    !pathname ||
+    !webSocketArray.map(({ route }) => route).includes(pathname)
+  ) {
     socket.destroy();
+    return;
   }
-});
 
-function updateMessagesForUsers() {
-  wssChat.clients.forEach((client) => {
-    if (client.readyState === WebSocket.OPEN) {
-      client.send(JSON.stringify(getAllMessages())); // Puedes incluir timestamp si quieres
-    }
+  webSocketArray.forEach(({ route, wsServer }) => {
+    if (pathname === route)
+      wsServer.handleUpgrade(req, socket, head, (ws) =>
+        wsServer.emit("connection", ws, req)
+      );
   });
-}
+});
 
 wssChat.on("connection", (ws) => {
   console.log("Cliente conectado a /chat");
