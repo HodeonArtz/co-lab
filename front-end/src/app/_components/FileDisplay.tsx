@@ -21,7 +21,7 @@ const FileDisplay = ({ fileInfo: { name } }: Props) => {
   }
   return (
     <NavLink
-      label="With icon"
+      label={name}
       rightSection={
         <ActionIcon.Group>
           <ActionIcon variant="subtle" size="md">

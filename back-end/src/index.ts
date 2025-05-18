@@ -8,7 +8,10 @@ import {
   postMessage,
   updateMessagesForUsers,
 } from "./services/websockets/chat.ts";
-import { documentPort } from "./services/websockets/websocketService.ts";
+import {
+  documentPort,
+  filesPort,
+} from "./services/websockets/websocketService.ts";
 import { webSockets, wssChat } from "./services/websockets/servers.ts";
 import path from "node:path";
 const app = express();
@@ -28,6 +31,7 @@ app.use("/document", documentRoutes);
 app.use("/files", filesRoutes);
 
 documentPort();
+filesPort();
 export const server = app.listen(port, () => {
   console.log(`Servidor en puerto ${port}`);
 });
