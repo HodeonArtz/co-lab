@@ -1,5 +1,8 @@
+import { backendPath } from "./paths";
+
 export interface ClientDocument {
   content: {};
+  date: string;
   username: string;
 }
 
@@ -18,7 +21,7 @@ export const sendEditorUpdate = (update: ClientDocument) => {
   }
 };
 export async function fetchAndGetDocument() {
-  const response = await fetch("http://localhost:3000/document/download");
+  const response = await fetch(`${backendPath}/document/download`);
   const data = await response.json();
 
   // Crea un Blob con el contenido del JSON

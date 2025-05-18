@@ -8,7 +8,7 @@ const ChatHeader = () => {
     // Crea un enlace temporal y simula el clic para descargar
     const a = document.createElement("a");
     a.href = url;
-    a.download = "datos.json"; // Nombre del archivo
+    a.download = "chat.json"; // Nombre del archivo
     a.click();
 
     // Limpia la URL creada

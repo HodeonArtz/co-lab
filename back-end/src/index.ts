@@ -7,7 +7,7 @@ import userRoutes from "./routes/users.ts";
 import { getAllMessages, postMessage } from "./services/websockets/chat.ts";
 import { documentPort } from "./services/websockets/websocketService.ts";
 const app = express();
-const port = 3000;
+const port = 3123;
 app.use(
   cors({
     origin: "*",
@@ -25,7 +25,7 @@ const wssChat = new WebSocketServer({ noServer: true });
 export const wssDocument = new WebSocketServer({ noServer: true });
 
 export const server = app.listen(port, () => {
-  console.log("Servidor en puerto 3000");
+  console.log(`Servidor en puerto ${port}`);
 });
 
 documentPort();
