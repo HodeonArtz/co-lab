@@ -12,7 +12,7 @@ import { documentPort } from "./services/websockets/websocketService.ts";
 import { webSockets, wssChat } from "./services/websockets/servers.ts";
 import path from "node:path";
 const app = express();
-const port = 3000;
+const port = 3123;
 app.use(
   cors({
     origin: "*",
@@ -29,7 +29,7 @@ app.use("/files", filesRoutes);
 
 documentPort();
 export const server = app.listen(port, () => {
-  console.log("Servidor en puerto 3000");
+  console.log(`Servidor en puerto ${port}`);
 });
 
 server.on("upgrade", (req, socket, head) => {

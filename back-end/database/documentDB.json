@@ -10,7 +10,7 @@
       "content": [
         {
           "type": "text",
-          "text": "Header1"
+          "text": "REACT + WEBSOCKET"
         }
       ]
     },
@@ -23,161 +23,19 @@
       "content": [
         {
           "type": "text",
-          "text": "Header2"
-        }
-      ]
-    },
-    {
-      "type": "heading",
-      "attrs": {
-        "textAlign": null,
-        "level": 3
-      },
-      "content": [
-        {
-          "type": "text",
-          "text": "Header3"
+          "text": "Websocket"
         }
       ]
     },
     {
       "type": "paragraph",
       "attrs": {
-        "textAlign": null
-      }
-    },
-    {
-      "type": "heading",
-      "attrs": {
-        "textAlign": null,
-        "level": 4
+        "textAlign": "left"
       },
       "content": [
         {
           "type": "text",
-          "text": "Header4"
-        }
-      ]
-    },
-    {
-      "type": "bulletList",
-      "content": [
-        {
-          "type": "listItem",
-          "content": [
-            {
-              "type": "paragraph",
-              "attrs": {
-                "textAlign": null
-              },
-              "content": [
-                {
-                  "type": "text",
-                  "text": "HOLA"
-                },
-                {
-                  "type": "text",
-                  "marks": [
-                    {
-                      "type": "subscript"
-                    }
-                  ],
-                  "text": "adeu"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "listItem",
-          "content": [
-            {
-              "type": "paragraph",
-              "attrs": {
-                "textAlign": null
-              },
-              "content": [
-                {
-                  "type": "text",
-                  "text": "HOLA"
-                },
-                {
-                  "type": "text",
-                  "marks": [
-                    {
-                      "type": "superscript"
-                    }
-                  ],
-                  "text": "adeu"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "horizontalRule"
-    },
-    {
-      "type": "paragraph",
-      "attrs": {
-        "textAlign": "center"
-      },
-      "content": [
-        {
-          "type": "text",
-          "text": "Lorem ipsum dolor sit amet consectetur adipiscing elit mattis tortor mauris scelerisque, faucibus nec sapien bibendum arcu auctor est pretium quam id, proin justo cras lobortis nascetur tincidunt curabitur vitae maecenas pharetra. "
-        }
-      ]
-    },
-    {
-      "type": "horizontalRule"
-    },
-    {
-      "type": "paragraph",
-      "attrs": {
-        "textAlign": "right"
-      },
-      "content": [
-        {
-          "type": "text",
-          "text": "Lorem ipsum dolor sit amet consectetur adipiscing elit mattis tortor mauris scelerisque, faucibus nec sapien bibendum arcu auctor est pretium quam id, proin justo cras lobortis nascetur tincidunt curabitur vitae maecenas pharetra. "
-        }
-      ]
-    },
-    {
-      "type": "horizontalRule"
-    },
-    {
-      "type": "paragraph",
-      "attrs": {
-        "textAlign": "justify"
-      },
-      "content": [
-        {
-          "type": "text",
-          "text": "Lorem ipsum dolor sit amet consectetur adipiscing elit mattis tortor mauris scelerisque, faucibus nec sapien bibendum arcu auctor est pretium quam id, proin justo cras lobortis nascetur tincidunt curabitur vitae maecenas pharetra."
-        }
-      ]
-    },
-    {
-      "type": "horizontalRule"
-    },
-    {
-      "type": "blockquote",
-      "content": [
-        {
-          "type": "paragraph",
-          "attrs": {
-            "textAlign": null
-          },
-          "content": [
-            {
-              "type": "text",
-              "text": "Lorem ipsum dolor sit amet consectetur adipiscing elit mattis tortor mauris scelerisque, faucibus nec sapien bibendum arcu auctor est pretium quam id, proin justo cras lobortis nascetur tincidunt curabitur vitae maecenas pharetra. Vitae tempus mollis morbi id feugiat pellentesque fringilla massa netus, sapien penatibus sodales parturient justo lacus tempor primis, ridiculus enim potenti nisl luctus eget a cursus. Vivamus orci eget non netus curae nascetur, tempor mollis suspendisse nam dapibus sociis, sociosqu dignissim vehicula id lacus. Suspendisse hendrerit habitasse sollicitudin non fringilla netus potenti, nibh montes curae pretium hac ut aenean fermentum, morbi velit lobortis maecenas sodales ornare."
-            }
-          ]
+          "text": "dfdf"
         }
       ]
     }

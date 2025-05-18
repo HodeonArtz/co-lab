@@ -1,5 +1,4 @@
 import { Divider, Stack } from "@mantine/core";
-import MessageEditor, { MessagesChannel } from "./Messages";
 import { useEffect, useState } from "react";
 import {
   IncomingMessageData,
@@ -7,16 +6,17 @@ import {
   MessageDisplay,
   WebSocketMessage,
 } from "../../../types/chat";
+import { WS_URL } from "../../_services/wsService";
 import ChatHeader from "./ChatHeader";
+import MessageEditor, { MessagesChannel } from "./Messages";
 
 const Chat = () => {
   const [onSend, setOnSend] = useState<
     (({ content }: Message) => void) | undefined
   >();
-
   const [messages, setMessages] = useState<MessageDisplay[] | undefined>();
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:3000/chat");
+    const socket = new WebSocket(`${WS_URL}/chat`);
 
     function setIncomingMessages(event: any) {
       const username = localStorage.getItem("username");

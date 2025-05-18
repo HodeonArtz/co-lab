@@ -1,5 +1,7 @@
+import { ActionIcon, Group, Stack, Title } from "@mantine/core";
 import { useDebouncedCallback } from "@mantine/hooks";
 import { Link, RichTextEditor } from "@mantine/tiptap";
+import { IconClockDown, IconDownload } from "@tabler/icons-react";
 import Highlight from "@tiptap/extension-highlight";
 import SubScript from "@tiptap/extension-subscript";
 import Superscript from "@tiptap/extension-superscript";
@@ -8,14 +10,14 @@ import Underline from "@tiptap/extension-underline";
 import { EditorEvents, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useEffect } from "react";
+import { fetchAndGetDocumentHistory } from "../../_services/documentHistoryService";
 import {
   connectSocket,
   fetchAndGetDocument,
   sendEditorUpdate,
   socket,
 } from "../../_services/documentService";
-import { Stack } from "@mantine/core";
-import HeaderTitle from "./HeaderTitle";
+import { WS_URL } from "../../_services/wsService";
 
 export function DocumentEditor() {
   const handleOnChange = useDebouncedCallback(
@@ -25,6 +27,7 @@ export function DocumentEditor() {
 
       sendEditorUpdate({
         content: content,
+        date: new Date().toISOString(),
         username: localStorage.getItem("username")!,
       });
     },
@@ -35,7 +38,17 @@ export function DocumentEditor() {
     const url = await fetchAndGetDocument();
     const a = document.createElement("a");
     a.href = url;
-    a.download = "datos.json"; // Nombre del archivo
+    a.download = "document.json"; // Nombre del archivo
+    a.click();
+
+    // Limpia la URL creada
+    URL.revokeObjectURL(url);
+  };
+  const handleOnDownloadHistory = async () => {
+    const url = await fetchAndGetDocumentHistory();
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "document_history.json"; // Nombre del archivo
     a.click();
 
     // Limpia la URL creada
@@ -55,7 +68,7 @@ export function DocumentEditor() {
     onUpdate: handleOnChange,
   });
   useEffect(() => {
-    connectSocket("ws://localhost:3000/doc");
+    connectSocket(`${WS_URL}/doc`);
     if (socket)
       socket.onmessage = (e) => {
         console.log("Received", e.data);
@@ -68,7 +81,17 @@ export function DocumentEditor() {
 
   return (
     <Stack>
-      <HeaderTitle onDownload={handleOnDownload}>Document</HeaderTitle>
+      <Group justify="space-between">
+        <Title size="h3">Document</Title>
+        <ActionIcon.Group>
+          <ActionIcon size="lg" variant="outline">
+            <IconClockDown onClick={handleOnDownloadHistory} />
+          </ActionIcon>
+          <ActionIcon size="lg" variant="outline">
+            <IconDownload onClick={handleOnDownload} />
+          </ActionIcon>
+        </ActionIcon.Group>
+      </Group>
       <RichTextEditor editor={editor} mih="500px">
         <RichTextEditor.Toolbar sticky stickyOffset="var(--docs-header-height)">
           <RichTextEditor.ControlsGroup>
