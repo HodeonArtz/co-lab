@@ -9,9 +9,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const ruta = resolve(__dirname, "../../../database/documentDB.json");
-const dbJson = readFileSync(ruta, "utf8");
-const data: typeof DBJSON = JSON.parse(dbJson);
-const dbContent = data.content;
 
 export function getDocument() {
   const dbJson = readFileSync(ruta, "utf8");
@@ -28,6 +25,7 @@ export function getDocument() {
 export function sendDocumentContent(
   ws: WebSocket,
   username: string,
+  date: string,
   documentContent: {}
 ) {
   wssDocument.clients.forEach((client) => {
@@ -37,6 +35,7 @@ export function sendDocumentContent(
           type: "sync",
           content: documentContent,
           username,
+          date: date,
         })
       );
     }

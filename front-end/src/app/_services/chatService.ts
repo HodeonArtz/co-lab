@@ -1,5 +1,7 @@
+import { backendPath } from "./paths";
+
 export async function fetchAndGetAllMessages() {
-  const response = await fetch("http://localhost:3000/chat/messageslist");
+  const response = await fetch(`${backendPath}/chat/messageslist`);
   const data = await response.json();
 
   // Crea un Blob con el contenido del JSON

@@ -1,1 +1,1 @@
-export const backendPath = "http://127.0.0.1:3000";
+export const backendPath = "http://localhost:3123";

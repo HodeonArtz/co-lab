@@ -1,3 +1,4 @@
+import { Stack } from "@mantine/core";
 import { useDebouncedCallback } from "@mantine/hooks";
 import { Link, RichTextEditor } from "@mantine/tiptap";
 import Highlight from "@tiptap/extension-highlight";
@@ -14,7 +15,7 @@ import {
   sendEditorUpdate,
   socket,
 } from "../../_services/documentService";
-import { Stack } from "@mantine/core";
+import { WS_URL } from "../../_services/wsService";
 import HeaderTitle from "./HeaderTitle";
 
 export function DocumentEditor() {
@@ -25,6 +26,7 @@ export function DocumentEditor() {
 
       sendEditorUpdate({
         content: content,
+        date: new Date().toISOString(),
         username: localStorage.getItem("username")!,
       });
     },
@@ -55,7 +57,7 @@ export function DocumentEditor() {
     onUpdate: handleOnChange,
   });
   useEffect(() => {
-    connectSocket("ws://localhost:3000/doc");
+    connectSocket(`${WS_URL}/doc`);
     if (socket)
       socket.onmessage = (e) => {
         console.log("Received", e.data);
