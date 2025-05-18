@@ -3,12 +3,14 @@ import express from "express";
 import chatRoutes from "./routes/chat.ts";
 import documentRoutes from "./routes/document.ts";
 import userRoutes from "./routes/users.ts";
+import filesRoutes from "./routes/files.ts";
 import {
   postMessage,
   updateMessagesForUsers,
 } from "./services/websockets/chat.ts";
 import { documentPort } from "./services/websockets/websocketService.ts";
 import { webSockets, wssChat } from "./services/websockets/servers.ts";
+import path from "node:path";
 const app = express();
 const port = 3000;
 app.use(
@@ -23,6 +25,7 @@ app.use(express.json());
 app.use("/user", userRoutes);
 app.use("/chat", chatRoutes);
 app.use("/document", documentRoutes);
+app.use("/files", filesRoutes);
 
 documentPort();
 export const server = app.listen(port, () => {
@@ -59,18 +62,4 @@ wssChat.on("connection", (ws) => {
   });
 });
 
-/* const wss = new WebSocketServer({ server });
-
-wss.on("connection", (ws) => {
-  console.log("cliente conectado");
-  ws.send("!bienvenido");
-
-  ws.on("message", (message: Buffer) => {
-    console.log();
-    console.log("Mensaje recibido:", JSON.parse(message.toString()));
-  });
-
-  ws.on("close", () => {
-    console.log("Cliente desconectado");
-  });
-}); */
+const FILE_DIR = path.resolve("uploads");

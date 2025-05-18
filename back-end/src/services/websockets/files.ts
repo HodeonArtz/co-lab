@@ -11,6 +11,7 @@ export interface FileInfo {
   createdAt: Date;
   updatedAt: Date;
 }
+
 export async function listFiles(): Promise<FileInfo[]> {
   const dir = "../../../database/uploaded_files";
   // Lee la carpeta y obtén Dirent para saber si es archivo o dir.

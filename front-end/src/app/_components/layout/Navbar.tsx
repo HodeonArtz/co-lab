@@ -11,6 +11,7 @@ import { IconUpload } from "@tabler/icons-react";
 import { Dropzone, FileWithPath } from "@mantine/dropzone";
 import { useRef } from "react";
 import scrollClassnames from "./Scroll.module.css";
+import FileDisplay from "../FileDisplay";
 const Navbar = () => {
   const openRef = useRef<() => void>(null);
 
@@ -43,7 +44,9 @@ const Navbar = () => {
             onDrop={handleUpload}
             activateOnClick={false}
           >
-            <Stack></Stack>
+            <Stack align="stretch">
+              <FileDisplay />
+            </Stack>
           </Dropzone>
         </AppShell.Section>
       </ScrollArea>
