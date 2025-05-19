@@ -1,1 +1,1 @@
-export const WS_URL = "ws://localhost:3123";
+export const WS_URL = `ws://${window.location.hostname}:3123`;
