@@ -4,7 +4,9 @@ import { getDocument, sendDocumentContent } from "./document.ts";
 import { addChange } from "./documentHistory.ts";
 import { wssDocument, wssFiles } from "./servers.ts";
 import { sendFilesList } from "./files.ts";
+import { fileURLToPath } from "url";
 
+const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const ruta = resolve(__dirname, "../../../database/documentDB.json");

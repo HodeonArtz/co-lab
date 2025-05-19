@@ -3,7 +3,9 @@ import { dirname, resolve } from "path";
 import { WebSocket } from "ws";
 import type DBJSON from "../../../database/documentDB.json";
 import { wssDocument } from "./servers.ts";
+import { fileURLToPath } from "url";
 
+const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const ruta = resolve(__dirname, "../../../database/documentDB.json");

@@ -2,7 +2,9 @@ import { readFileSync, writeFileSync } from "fs";
 import { diff } from "jsondiffpatch";
 import { dirname, resolve } from "path";
 import type DocumentDBJSON from "../../../database/documentDB.json";
+import { fileURLToPath } from "url";
 
+const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const documentPath = resolve(__dirname, "../../../database/documentDB.json");
